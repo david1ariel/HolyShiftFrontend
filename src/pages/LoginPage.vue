@@ -3,8 +3,8 @@
     <div class="login-content">
       <div class="title">Credentials, please.</div>
       <div class="inputs">
-        <div class="input-wrapper">Username: <input class="text-input" /></div>
-        <div class="input-wrapper">Password: <input class="text-input" /></div>
+        <div class="input-wrapper">Username: <input class="text-input" v-model="credentials.username"/></div>
+        <div class="input-wrapper">Password: <input class="text-input" v-model="credentials.password"/></div>
       </div>
       <button class="login-btn" @click="loginClicked">Login</button>
     </div>
@@ -12,8 +12,14 @@
 </template>
 
 <script setup>
-const loginClicked = () => {
-  alert('login clicked')
+import {ref } from 'vue'
+import {useAuthStore} from 'app/src/stores/auth-store'
+
+const credentials = ref({})
+const authStore = useAuthStore()
+
+const loginClicked = async() => {
+  await authStore.login(credentials.value)
 }
 </script>
 
@@ -27,7 +33,7 @@ const loginClicked = () => {
   align-items: center;
 }
 .login-content {
-  min-width: 600px;
+  min-width: 620px;
 }
 .title {
   font-size: xxx-large;
@@ -36,6 +42,12 @@ const loginClicked = () => {
 .text-input {
   border: 0;
   color: #128c8a;
+  border-radius: 10px;
+  height: 18px;
+  padding-left: 10px;
+}
+.text-input:hover {
+  background-color: #19dbd0;
 }
 input:focus {
   outline: none;
@@ -48,6 +60,7 @@ input:focus {
 .input-wrapper {
   width: 45%;
   padding-left: 16px;
+  /* padding-bottom: 4px; */
   border-width: 0 0 3px 3px;
   border-style: solid;
   border-color: #19dbd0;

@@ -3,9 +3,22 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
-  name: 'App'
-})
+  name: "App",
+});
+
+onMounted(() => {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (user) {
+    try {
+      if (user.token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+});
 </script>
