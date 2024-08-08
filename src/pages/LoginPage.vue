@@ -1,14 +1,14 @@
-<template>
-  <q-page class="login-wrapper">
+<template style="height: 100%">
+  <div class="login-wrapper">
     <div class="login-content">
       <div class="title">Credentials, please.</div>
       <div class="inputs">
         <div class="input-wrapper">Username: <input class="text-input" v-model="credentials.username"/></div>
-        <div class="input-wrapper">Password: <input class="text-input" v-model="credentials.password"/></div>
+        <div class="input-wrapper">Password: <input class="text-input" v-model="credentials.password" @keypress.enter="loginClicked" /></div>
       </div>
       <button class="login-btn" @click="loginClicked">Login</button>
     </div>
-  </q-page>
+  </div>
 </template>
 
 <script setup>
@@ -28,7 +28,7 @@ const loginClicked = async() => {
 <style scoped>
 .login-wrapper {
   display: flex;
-  /* height: 100%; */
+  height: 100%;
   justify-content: space-around;
   align-items: center;
 }

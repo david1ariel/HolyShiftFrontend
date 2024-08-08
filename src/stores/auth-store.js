@@ -23,9 +23,10 @@ export const useAuthStore = defineStore("authStore", {
         })
       } else {
         const token = res.data.token;
-        this.loggedUser = res.data.user;
+        this.loggedUser = res.data.employee;
         api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        sessionStorage.setItem("user", this.loggedUser);
+        sessionStorage.setItem("t", token);
+        sessionStorage.setItem("user", JSON.stringify(this.loggedUser));
         this.$router.push('/employees')
 
       }
@@ -34,5 +35,6 @@ export const useAuthStore = defineStore("authStore", {
 
   getters: {
     isLoggedIn: (state) => !!state.loggedUser,
+    getLoggedUser: state => state.loggedUser
   },
 });
